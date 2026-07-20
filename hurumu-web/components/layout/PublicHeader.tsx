@@ -1,15 +1,23 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, Search, Globe, ChevronDown } from 'lucide-react';
+import { Menu, X, Globe, ChevronDown } from 'lucide-react';
 
 const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/about', children: ['Administration', 'History', 'Geography'] },
-  { label: 'Services', href: '/services', children: ['Civil Registration', 'Land Administration', 'Business License', 'Agriculture'] },
+  { label: 'About', href: '/about' },
+  {
+    label: 'Services', href: '/services',
+    children: [
+      { label: 'Civil Registration', href: '/services/birth-certificate' },
+      { label: 'Land Administration', href: '/services/land-certificate' },
+      { label: 'Business License', href: '/services/business-license' },
+      { label: 'Agriculture', href: '/services/agricultural-extension' },
+    ],
+  },
   { label: 'Departments', href: '/departments' },
   { label: 'News & Events', href: '/news' },
-  { label: 'Transparency', href: '/transparency', children: ['Budget Reports', 'Procurement', 'Performance'] },
+  { label: 'Transparency', href: '/transparency' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -19,10 +27,8 @@ export default function PublicHeader() {
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
-      {/* Oromia stripe */}
       <div className="flex h-1"><div className="flex-1 bg-green-900"/><div className="flex-1 bg-yellow-600"/><div className="flex-1 bg-white border-t border-gray-200"/><div className="flex-1 bg-yellow-600"/><div className="flex-1 bg-green-900"/></div>
 
-      {/* Utility bar */}
       <div className="bg-gray-900 text-gray-400 text-xs py-1.5">
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
           <span>📍 Hurumu Town, Ilu Aba Bora Zone, Oromia · 📞 +251 57 XXX XXXX</span>
@@ -34,7 +40,6 @@ export default function PublicHeader() {
         </div>
       </div>
 
-      {/* Main header */}
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-3">
@@ -47,7 +52,6 @@ export default function PublicHeader() {
             </div>
           </Link>
 
-          {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-1">
             {navLinks.map(link => (
               <div key={link.label} className="relative"
@@ -61,8 +65,8 @@ export default function PublicHeader() {
                 {link.children && openDropdown === link.label && (
                   <div className="absolute top-full left-0 bg-white border border-gray-100 border-t-2 border-t-green-800 rounded-lg shadow-lg min-w-44 py-1 z-50">
                     {link.children.map(child => (
-                      <Link key={child} href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">{child}</Link>
+                      <Link key={child.label} href={child.href}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">{child.label}</Link>
                     ))}
                   </div>
                 )}
@@ -80,7 +84,6 @@ export default function PublicHeader() {
         </div>
       </div>
 
-      {/* Mobile menu */}
       {mobileOpen && (
         <div className="lg:hidden border-t border-gray-100 bg-white px-4 py-3 space-y-1">
           {navLinks.map(link => (

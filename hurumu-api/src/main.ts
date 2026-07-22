@@ -6,10 +6,7 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Security middleware
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const helmet = require('helmet');
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const compression = require('compression');
   app.use(typeof helmet === 'function' ? helmet() : helmet.default());
   app.use(typeof compression === 'function' ? compression() : compression.default());
@@ -30,7 +27,6 @@ async function bootstrap() {
     }),
   );
 
-  // Swagger
   const config = new DocumentBuilder()
     .setTitle('Hurumu Woreda Administration API')
     .setDescription('Enterprise government portal — Oromia Region, Ethiopia')
@@ -47,7 +43,7 @@ async function bootstrap() {
   });
 
   const port = process.env.PORT ?? 3001;
-  await app.listen(port);
+  await app.listen(port, '0.0.0.0');
   console.log(`\n🟢  Hurumu Woreda API → http://localhost:${port}`);
   console.log(`📚  Swagger docs    → http://localhost:${port}/api/docs\n`);
 }

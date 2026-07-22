@@ -32,6 +32,11 @@ export class PrismaService extends PrismaClientClass implements OnModuleInit, On
   constructor() {
     super({
       log: ['error', 'warn'],
+      datasources: {
+        db: {
+          url: process.env.DATABASE_URL,
+        },
+      },
     });
   }
 

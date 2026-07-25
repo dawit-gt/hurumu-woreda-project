@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD, APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core';
 
 import { PrismaModule } from './prisma/prisma.module';
@@ -32,7 +31,6 @@ import { GlobalExceptionFilter } from './common/filters/http-exception.filter';
   ],
   providers: [
     { provide: APP_GUARD,       useClass: JwtAuthGuard },
-    { provide: APP_GUARD,       useClass: ThrottlerGuard },
     { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },
     { provide: APP_FILTER,      useClass: GlobalExceptionFilter },
   ],

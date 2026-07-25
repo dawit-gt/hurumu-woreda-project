@@ -3,7 +3,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
-async function bootstrap() {
+export default async function handler(req: any, res: any) {
   const app = await NestFactory.create(AppModule);
 
   const helmet = require('helmet');
@@ -42,9 +42,41 @@ async function bootstrap() {
     swaggerOptions: { persistAuthorization: true },
   });
 
+  await app.init();
+  const expressApp = app.getHttpAdapter().getInstance();
+  return expressApp(req, res);
+}
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+
+  const helmet = require('helmet');
+  const compression = require('compression');
+  app.use(typeof helmet === 'function' ? helmet() : helmet.default());
+  app.use(typeof compression === 'function' ? compression() : compression.default());
+
+  app.enableCors({
+    origin: process.env.FRONTEND_URL ?? 'http://localhost:3000',
+    credentials: true,
+  });
+
+  app.setGlobalPrefix(process.env.API_PREFIX ?? 'api/v1');
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+      transformOptions: { enableImplicitConversion: true },
+    }),
+  );
+
   const port = process.env.PORT ?? 3001;
   await app.listen(port, '0.0.0.0');
   console.log(`\n🟢  Hurumu Woreda API → http://localhost:${port}`);
   console.log(`📚  Swagger docs    → http://localhost:${port}/api/docs\n`);
 }
-bootstrap();
+
+if (process.env.NODE_ENV !== 'production') {
+  bootstrap();
+}

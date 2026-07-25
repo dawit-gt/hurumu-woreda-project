@@ -25,7 +25,7 @@
     "db:studio": "npx prisma studio",
     "db:generate": "npx prisma generate",
     "db:seed:win": "npx ts-node prisma/seed.ts",
-    "build:render": "npx prisma generate && npm run build"
+    "vercel-build": "npx prisma generate && npm run build"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",

@@ -22,7 +22,9 @@ async function bootstrap() {
     }),
   );
 
-  const port = process.env.PORT ?? 3001;
+  // Safely parse port to integer and fall back if empty/undefined
+  const port = parseInt(process.env.PORT || '3001', 10);
+  
   await app.listen(port, '0.0.0.0');
   console.log(`🟢 Hurumu Woreda API is running on port: ${port}`);
 }

@@ -23,6 +23,18 @@ services:
       - key: FRONTEND_URL
         sync: false
 
+  - type: web
+    name: hurumu-web
+    runtime: node
+    rootDir: hurumu-web
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_API_URL
+        value: https://hurumu-api.onrender.com/api/v1
+
 databases:
   - name: hurumu-db
     databaseName: hurumu_woreda_db

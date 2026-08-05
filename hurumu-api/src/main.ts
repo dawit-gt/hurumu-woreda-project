@@ -7,8 +7,26 @@ async function bootstrap() {
     logger: ['error', 'warn', 'log'] 
   });
 
+  const allowedOrigins = [
+    'https://hurumu-woreda-project.vercel.app', // production
+    'http://localhost:3000', // local dev
+  ];
+
   app.enableCors({
-    origin: process.env.FRONTEND_URL ?? '*',
+    origin: (origin, callback) => {
+      // allow non-browser requests (curl, server-to-server, no Origin header)
+      if (!origin) return callback(null, true);
+
+      const isAllowed =
+        allowedOrigins.includes(origin) ||
+        /^https:\/\/hurumu-woreda-project-[a-z0-9]+-dawatd111-4765s-projects\.vercel\.app$/.test(origin);
+
+      if (isAllowed) {
+        callback(null, true);
+      } else {
+        callback(new Error(`Not allowed by CORS: ${origin}`));
+      }
+    },
     credentials: true,
   });
 
@@ -22,7 +40,6 @@ async function bootstrap() {
     }),
   );
 
-  // Safely parse port to integer and fall back if empty/undefined
   const port = parseInt(process.env.PORT || '3001', 10);
   
   await app.listen(port, '0.0.0.0');

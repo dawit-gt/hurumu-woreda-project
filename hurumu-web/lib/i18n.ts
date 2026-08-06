@@ -51,7 +51,7 @@ export const navLinks: Record<
     { label: "Quunnamtii", href: "/contact" },
   ],
   am: [
-    { label: "መነሻ", href: "/" },
+    { label: "ዋና ገፅ", href: "/" },
     { label: "ስለ እኛ", href: "/about" },
     {
       label: "አገልግሎቶች",
@@ -63,10 +63,10 @@ export const navLinks: Record<
         { label: "ግብርና", href: "/services/agricultural-extension" },
       ],
     },
-    { label: "ክፍሎች", href: "/departments" },
+    { label: "አገልግሎት ክፍል", href: "/departments" },
     { label: "ዜናና ማስታወቂያዎች", href: "/news" },
-    { label: "ግልፅነት", href: "/transparency" },
-    { label: "እውቂያ", href: "/contact" },
+    { label: "ግልፀኝነት", href: "/transparency" },
+    { label: "ግንኙነት", href: "/contact" },
   ],
 };
 

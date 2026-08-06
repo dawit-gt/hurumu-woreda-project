@@ -2,27 +2,21 @@
 import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Globe } from "lucide-react";
 import { useLanguage, Language } from "./LanguageProvider";
 import { navLinks, publicLabels } from "@/lib/i18n";
 
 export default function PublicHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [langOpen, setLangOpen] = useState(false);
   const { language, setLanguage } = useLanguage();
 
   const languageLabel: Record<Language, string> = {
     en: "English",
-    om: "Oromoo",
+    om: "Afaan Oromoo",
     am: "አማርኛ",
   };
-
-  const getClass = (lang: Language) =>
-    `px-3 py-1 rounded-full text-xs font-semibold transition ${
-      language === lang
-        ? "bg-white text-green-900"
-        : "bg-transparent text-gray-300 hover:text-white"
-    }`;
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -39,16 +33,38 @@ export default function PublicHeader() {
           <span>
             📍 Hurumu Town, Ilu Aba Bora Zone, Oromia · 📞 +251 57 XXX XXXX
           </span>
-          <div className="flex gap-2">
-            {(["en", "om", "am"] as Language[]).map((lang) => (
-              <button
-                key={lang}
-                onClick={() => setLanguage(lang)}
-                className={getClass(lang)}
-              >
-                {languageLabel[lang]}
-              </button>
-            ))}
+
+          <div className="relative">
+            <button
+              onClick={() => setLangOpen((v) => !v)}
+              onBlur={() => setTimeout(() => setLangOpen(false), 150)}
+              className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-gray-200 hover:bg-white/20 transition"
+            >
+              <Globe size={12} />
+              {languageLabel[language]}
+              <ChevronDown size={12} />
+            </button>
+
+            {langOpen && (
+              <div className="absolute top-full right-0 mt-1 bg-white border border-gray-100 rounded-lg shadow-lg min-w-40 py-1 z-50">
+                {(["en", "om", "am"] as Language[]).map((lang) => (
+                  <button
+                    key={lang}
+                    onClick={() => {
+                      setLanguage(lang);
+                      setLangOpen(false);
+                    }}
+                    className={`w-full text-left px-4 py-2 text-sm transition ${
+                      language === lang
+                        ? "bg-green-50 text-green-800 font-semibold"
+                        : "text-gray-700 hover:bg-gray-50"
+                    }`}
+                  >
+                    {languageLabel[lang]}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

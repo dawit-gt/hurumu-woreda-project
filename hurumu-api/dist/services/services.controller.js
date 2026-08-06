@@ -55,7 +55,7 @@ let ServicesController = exports.ServicesController = class ServicesController {
 __decorate([
     (0, public_decorator_1.Public)(),
     (0, common_1.Get)(),
-    ApiQuery({ name: 'category', enum: enums_1.ServiceCategory, required: false }),
+    (0, swagger_1.ApiQuery)({ name: 'category', enum: enums_1.ServiceCategory, required: false }),
     __param(0, (0, common_1.Query)('category')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

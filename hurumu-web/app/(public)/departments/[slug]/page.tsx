@@ -44,7 +44,7 @@ const DEPARTMENTS: Record<string, any> = {
       { en: 'School administration and oversight', om: 'Bulchiinsa fi to\u2019annoo mana barumsaa', am: '\u12e8\u1275\u121d\u1215\u122d\u1275 \u1264\u1275 \u12a0\u1235\u1270\u12f3\u12f0\u122d \u12a5\u1293 \u121a\u1215' },
       { en: 'Teacher recruitment and development', om: 'Qacaruu fi guddisuu barsiisota', am: '\u12e8\u1218\u121d\u1215\u122b\u1295 \u1245\u1325\u122d \u12a5\u1293 \u12a0\u12ed\u1290\u1275' },
       { en: 'Student enrollment and welfare', om: 'Galmee fi deeggarsa barattootaa', am: '\u12e8\u1270\u121b\u122a \u121d\u12dd\u1308\u1263 \u12a5\u1293 \u12f0\u1205\u1290\u1275' },
-      { en: 'School construction and maintenance', om: 'Ijaarsa fi suphaa mana barumsaa', am: '\u12e8\u1275\u121d\u1205\u122d\u1275 \u1264\u1275 \u130d\u1295\uባ\u1273 \u12a5\u1293 \u1325\u1308\u1293' },
+      { en: 'School construction and maintenance', om: 'Ijaarsa fi suphaa mana barumsaa', am: '\u1275\u121d\u1205\u122d\u1275 \u1264\u1275 \u130d\u1295\u1263\u1275 \u12a5\u1293 \u1325\u1308\u1293' },
       { en: 'Adult literacy programs', om: 'Sagantaa barnoota manguddootaa', am: '\u12e8\u1265\u1244\u1275 \u1290\u12cb\u122a\u12eb\u1295 \u1218\u1233\u1230\u1263\u12ca\u1275 \u12a5\u1245\u12f5' },
       { en: 'Special needs education support', om: 'Deeggarsa barnoota hawwii addaa', am: '\u12e8\u1268\u1206\u12cd \u1348\u120b\u1309\u1290\u1275 \u12ad\u1295\u12cd\u1293\u1275 \u12f5\u130b\u134d' },
     ],
@@ -57,8 +57,7 @@ const DEPARTMENTS: Record<string, any> = {
     hours: 'Monday – Friday, 8:00 AM – 5:00 PM',
     responsibilities: [
       { en: 'Annual budget preparation and management', om: 'Qopheessuu fi bulchuu baajata waggaa', am: '\u12e8\u12d3\u1218\u1275 \u1263\u1300\u1275 \u12a0\u12ed\u1290\u1275 \u12a5\u1293 \u12a0\u1235\u1270\u12f3\u12f0\u122d' },
-      { en: 'Revenue collection and tax administration', om: 'Walitti qabuu galii fi bulchiinsa gibiraa', am: '\u12e8\u1308\u1295\u12dd\u1265 \u1235\u1265\uሰ\u1263 \u12a5\u1293 \u12e8\u1273\u12ad\u뮤 \u12a0\u1235\u1270\u12f3\u12f0\u122d' },
-      { en: 'Financial reporting and auditing', om: 'Gabaasa maallaqaa fi to\u2019annoo herregaa', am: '\u12e8\u1308\u1295\u12dd\u1265 \u122a\u1356\u122d\u1275 \u12a5\u1293 \u1218\u1218\u122d\u1218\u122d' },
+      {  en: 'Revenue collection and tax administration',  om: 'Walitti qabuu galii fi bulchiinsa gibiraa',  am: 'የገንዘብ ስብሰባ እና የታክስ አስተዳደር'  },
       { en: 'Economic development planning', om: 'Karoora misooma dinagdee', am: '\u12e8\u12a5\u1245\u12f5 \u12a5\u12f5\u1308\u1275 \u12a5\u1275\u12ab\u1265\u120d' },
       { en: 'Public procurement oversight', om: 'To\u2019annoo bittaa mootummaa', am: '\u12e8\u1218\u1295\u130d\u1235\u1275 \u130d\u12d8\u1273 \u1218\u1240\u1295\u1240\u1235' },
       { en: 'Payroll management for woreda staff', om: 'Bulchiinsa mindaa hojjettoota woreedaa', am: '\u12e8\u12c8\u1228\u12f3 \u1230\u122b\u1270\u129e\u127d \u12f0\u1218\u12c8\u12dd \u12a0\u1235\u1270\u12f3\u12f0\u122d' },

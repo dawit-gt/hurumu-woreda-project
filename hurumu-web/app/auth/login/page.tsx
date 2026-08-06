@@ -16,7 +16,7 @@ export default function LoginPage() {
     setLoading(true); setError('');
     try {
       await login(email, password);
-      router.replace('/dashboard');
+      router.replace('/admin/dashboard');
     } catch {
       setError('Invalid email or password. Please try again.');
     } finally { setLoading(false); }

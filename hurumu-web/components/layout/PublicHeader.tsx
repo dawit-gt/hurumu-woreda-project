@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, ChevronDown, Globe } from "lucide-react";
 import { useLanguage, Language } from "./LanguageProvider";
@@ -10,6 +10,7 @@ export default function PublicHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef<HTMLDivElement>(null);
   const { language, setLanguage } = useLanguage();
 
   const languageLabel: Record<Language, string> = {
@@ -17,6 +18,16 @@ export default function PublicHeader() {
     om: "Afaan Oromoo",
     am: "አማርኛ",
   };
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (langRef.current && !langRef.current.contains(event.target as Node)) {
+        setLangOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -34,10 +45,9 @@ export default function PublicHeader() {
             📍 Hurumu Town, Ilu Aba Bora Zone, Oromia · 📞 +251 57 XXX XXXX
           </span>
 
-          <div className="relative">
+          <div className="relative" ref={langRef}>
             <button
               onClick={() => setLangOpen((v) => !v)}
-              onBlur={() => setTimeout(() => setLangOpen(false), 150)}
               className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-gray-200 hover:bg-white/20 transition"
             >
               <Globe size={12} />

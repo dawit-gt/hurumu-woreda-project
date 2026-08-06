@@ -4,30 +4,65 @@ import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useLanguage } from "@/components/layout/LanguageProvider";
+import { selectByLanguage } from "@/lib/i18n";
 
 const slides = [
   {
-    title: "Connecting Hurumu Residents with Services",
-    description:
-      "Fast, transparent access to civil, land, health, and education services for every community member.",
+    title: {
+      en: "Connecting Hurumu Residents with Services",
+      om: "Jiraattota Hurumu waliin Tajaajiloota Walitti Hidhu",
+      am: "ዜጎችን ከአገልግሎቶች ጋር ማገናኘት",
+    },
+    description: {
+      en: "Fast, transparent access to civil, land, health, and education services for every community member.",
+      om: "Tajaajiloota seeraa, lafaa, fayyaa fi barnootaa saffisaan, ifaadhaan hawaasa maraaf argamsiisa.",
+      am: "ለእያንዳንዱ ሕብረተሰብ አባል ፈጣንና ግልጽ የሆነ የሕግ፣ የመሬት፣ የጤና እና የትምህርት አገልግሎት መዳረሻ ይሰጣል።",
+    },
     image: "/hero-1.jpg",
-    actionLabel: "Explore services",
+    actionLabel: {
+      en: "Explore services",
+      om: "Tajaajiloota Ilaali",
+      am: "አገልግሎቶችን ይመልከቱ",
+    },
     actionHref: "/services",
   },
   {
-    title: "News, Projects, and Community Updates",
-    description:
-      "Stay informed about local development, announcements, and public meetings across Hurumu Woreda.",
+    title: {
+      en: "News, Projects, and Community Updates",
+      om: "Odeeffannoo, Proojektoota, fi Haala Hawaasaa",
+      am: "ዜና፣ ፕሮጀክቶች እና የማህበረሰብ አዳዲስ ዕድገቶች",
+    },
+    description: {
+      en: "Stay informed about local development, announcements, and public meetings across Hurumu Woreda.",
+      om: "Haala misoomaa, beeksisaalee fi walgaʼii uummataa Hurumu Woreeda keessatti odeeffannoo argadhu.",
+      am: "ስለ የአካባቢ እድገት፣ ማስታወቂያዎችና የህብረተሰብ ስብሰባዎች ይማሩ።",
+    },
     image: "/hero-2.jpg",
-    actionLabel: "See news",
+    actionLabel: {
+      en: "See news",
+      om: "Odeeffannoo Ilaali",
+      am: "ዜናዎችን ይመልከቱ",
+    },
     actionHref: "/news",
   },
   {
-    title: "Transparent Local Government for Oromia",
-    description:
-      "Reporting, transparency, and contact channels to strengthen trust and civic participation.",
+    title: {
+      en: "Transparent Local Government for Oromia",
+      om: "Bulchiinsa Ifaa fi Hawaasummaa Oromiaaf",
+      am: "የኦሮሚያ ግልጽ እና የማህበረሰብ መንግሥት",
+    },
+    description: {
+      en: "Reporting, transparency, and contact channels to strengthen trust and civic participation.",
+      om: "Gabaasa, iftoomina fi karaa qunnamtii hirkoo amanamummaa fi hirmaannaa hawaasaa cimsu.",
+      am: "ሪፖርቲንግ፣ ግልጽነት እና የግንኙነት መንገዶች እምነትን እና ሕዝብ ማስተዋልን ይጨምራሉ።",
+    },
     image: "/hero-3.jpg",
-    actionLabel: "Learn more",
+    actionLabel: {
+      en: "Learn more",
+      om: "Dabalataan Baradhu",
+      am: "በተጨማሪ ያማሩ",
+    },
     actionHref: "/about",
   },
 ];
@@ -36,6 +71,7 @@ const AUTO_ADVANCE_MS = 8000;
 
 export default function HeroCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const { language } = useLanguage();
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -46,6 +82,24 @@ export default function HeroCarousel() {
   }, []);
 
   const activeSlide = slides[activeIndex];
+  const title = selectByLanguage(
+    language,
+    activeSlide.title.en,
+    activeSlide.title.om,
+    activeSlide.title.am,
+  );
+  const description = selectByLanguage(
+    language,
+    activeSlide.description.en,
+    activeSlide.description.om,
+    activeSlide.description.am,
+  );
+  const actionLabel = selectByLanguage(
+    language,
+    activeSlide.actionLabel.en,
+    activeSlide.actionLabel.om,
+    activeSlide.actionLabel.am,
+  );
 
   const navDots = useMemo(
     () => (
@@ -81,17 +135,17 @@ export default function HeroCarousel() {
               Hurumu Woreda · Community Services
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight mb-6">
-              {activeSlide.title}
+              {title}
             </h1>
             <p className="max-w-2xl text-sm sm:text-base text-slate-100/90 leading-relaxed mb-8">
-              {activeSlide.description}
+              {description}
             </p>
             <div className="flex flex-wrap items-center gap-4">
               <Link
                 href={activeSlide.actionHref}
                 className="inline-flex items-center justify-center rounded-full bg-yellow-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-yellow-500/20 hover:bg-yellow-300 transition"
               >
-                {activeSlide.actionLabel}
+                {actionLabel}
               </Link>
               <button
                 type="button"

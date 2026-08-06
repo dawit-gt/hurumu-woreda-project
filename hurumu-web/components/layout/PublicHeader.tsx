@@ -3,29 +3,26 @@ import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
 import { Menu, X, ChevronDown } from "lucide-react";
-
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  {
-    label: "Services",
-    href: "/services",
-    children: [
-      { label: "Civil Registration", href: "/services/birth-certificate" },
-      { label: "Land Administration", href: "/services/land-certificate" },
-      { label: "Business License", href: "/services/business-license" },
-      { label: "Agriculture", href: "/services/agricultural-extension" },
-    ],
-  },
-  { label: "Departments", href: "/departments" },
-  { label: "News & Events", href: "/news" },
-  { label: "Transparency", href: "/transparency" },
-  { label: "Contact", href: "/contact" },
-];
+import { useLanguage, Language } from "./LanguageProvider";
+import { navLinks, publicLabels } from "@/lib/i18n";
 
 export default function PublicHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const { language, setLanguage } = useLanguage();
+
+  const languageLabel: Record<Language, string> = {
+    en: "English",
+    om: "Oromoo",
+    am: "አማርኛ",
+  };
+
+  const getClass = (lang: Language) =>
+    `px-3 py-1 rounded-full text-xs font-semibold transition ${
+      language === lang
+        ? "bg-white text-green-900"
+        : "bg-transparent text-gray-300 hover:text-white"
+    }`;
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -42,12 +39,16 @@ export default function PublicHeader() {
           <span>
             📍 Hurumu Town, Ilu Aba Bora Zone, Oromia · 📞 +251 57 XXX XXXX
           </span>
-          <div className="flex gap-3">
-            <button className="hover:text-white">EN</button>
-            <button className="text-yellow-500 hover:text-yellow-400">
-              OM
-            </button>
-            <button className="hover:text-white">AM</button>
+          <div className="flex gap-2">
+            {(["en", "om", "am"] as Language[]).map((lang) => (
+              <button
+                key={lang}
+                onClick={() => setLanguage(lang)}
+                className={getClass(lang)}
+              >
+                {languageLabel[lang]}
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -69,7 +70,7 @@ export default function PublicHeader() {
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => (
+            {navLinks[language].map((link) => (
               <div
                 key={link.label}
                 className="relative"
@@ -106,7 +107,7 @@ export default function PublicHeader() {
               href="/auth/login"
               className="ml-2 bg-green-800 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-700 transition"
             >
-              Staff Login
+              {publicLabels[language].staffLogin}
             </Link>
           </nav>
 
@@ -121,7 +122,7 @@ export default function PublicHeader() {
 
       {mobileOpen && (
         <div className="lg:hidden border-t border-gray-100 bg-white px-4 py-3 space-y-1">
-          {navLinks.map((link) => (
+          {navLinks[language].map((link) => (
             <Link
               key={link.label}
               href={link.href}
@@ -135,7 +136,7 @@ export default function PublicHeader() {
             href="/auth/login"
             className="block mt-2 bg-green-800 text-white text-center py-2 rounded-lg text-sm font-semibold"
           >
-            Staff Login
+            {publicLabels[language].staffLogin}
           </Link>
         </div>
       )}

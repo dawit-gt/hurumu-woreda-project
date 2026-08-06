@@ -2,13 +2,10 @@
 
 import { useMemo, useState } from "react";
 import useSWR from "swr";
-import { api } from "@/lib/api";
+import { api, arrayFetcher } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { User, Department } from "@/types";
 import { RefreshCw, Edit3, Trash2 } from "lucide-react";
-
-const fetcher = <T,>(url: string) =>
-  api.get<{ data: T }>(url).then((res) => res.data.data);
 
 const emptyForm = {
   fullName: "",

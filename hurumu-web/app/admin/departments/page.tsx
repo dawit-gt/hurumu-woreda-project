@@ -2,12 +2,9 @@
 
 import { useMemo, useState } from "react";
 import useSWR from "swr";
-import { api } from "@/lib/api";
+import { api, arrayFetcher } from "@/lib/api";
 import { Department } from "@/types";
 import { Plus, Edit3, Trash2, RefreshCw } from "lucide-react";
-
-const fetcher = (url: string) =>
-  api.get<{ data: Department[] }>(url).then((r) => r.data.data);
 
 const emptyForm = {
   name: "",

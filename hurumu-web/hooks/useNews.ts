@@ -1,8 +1,6 @@
 import useSWR from 'swr';
-import { api } from '@/lib/api';
+import { fetcher } from '@/lib/api';
 import { ApiResponse, Paginated, NewsItem, NewsTag, NewsStatus } from '@/types';
-
-const fetcher = (url: string) => api.get(url).then(r => r.data.data);
 
 interface NewsQuery { page?: number; limit?: number; tag?: NewsTag; status?: NewsStatus; search?: string; }
 

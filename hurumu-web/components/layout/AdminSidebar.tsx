@@ -28,7 +28,7 @@ export default function AdminSidebar() {
   const { user, logout, hasRole } = useAuth();
 
   return (
-    <aside className="w-60 bg-green-900 text-white flex flex-col min-h-screen flex-shrink-0">
+    <aside className="w-full lg:w-60 bg-green-900 text-white flex flex-col min-h-screen flex-shrink-0">
       <div className="p-5 border-b border-green-800">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-white border border-green-800 flex items-center justify-center flex-shrink-0 shadow-sm">

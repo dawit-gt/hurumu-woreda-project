@@ -67,6 +67,12 @@ const slides = [
   },
 ];
 
+const badgeText = {
+  en: "Hurumu Woreda · Community Services",
+  om: "Hurumu Woreeda · Tajaajila Hawaasaa",
+  am: "ሁሩሙ ወረዳ · የማህበረሰብ አገልግሎት",
+};
+
 const AUTO_ADVANCE_MS = 8000;
 
 export default function HeroCarousel() {
@@ -100,6 +106,12 @@ export default function HeroCarousel() {
     activeSlide.actionLabel.om,
     activeSlide.actionLabel.am,
   );
+  const badge = selectByLanguage(
+    language,
+    badgeText.en,
+    badgeText.om,
+    badgeText.am,
+  );
 
   const navDots = useMemo(
     () => (
@@ -132,7 +144,7 @@ export default function HeroCarousel() {
         <div className="grid gap-10 lg:grid-cols-[0.9fr,1.1fr] items-center">
           <div className="relative z-10 text-white">
             <div className="inline-flex items-center gap-2 bg-yellow-500/20 border border-yellow-400/40 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-widest text-yellow-100 mb-6">
-              Hurumu Woreda · Community Services
+              {badge}
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight mb-6">
               {title}

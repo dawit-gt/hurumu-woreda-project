@@ -9,21 +9,51 @@ export class DocumentsService {
   constructor(private prisma: PrismaService) {}
 
   create(dto: CreateDocumentDto, uploadedById: string) {
-    return this.prisma.document.create({ data: { ...dto, uploadedById }, include: { department: { select: { id: true, name: true } }, uploadedBy: { select: { id: true, fullName: true } } } });
+    return this.prisma.document.create({
+      data: { ...dto, uploadedById },
+      include: {
+        department: { select: { id: true, name: true } },
+        uploadedBy: { select: { id: true, fullName: true } },
+      },
+    });
   }
 
   findAll(type?: DocumentType, fiscalYear?: string) {
     return this.prisma.document.findMany({
-      where: { isPublic: true, ...(type && { type }), ...(fiscalYear && { fiscalYear }) },
+      where: {
+        isPublic: true,
+        ...(type && { type }),
+        ...(fiscalYear && { fiscalYear }),
+      },
       orderBy: { createdAt: 'desc' },
       include: { department: { select: { id: true, name: true } } },
     });
   }
 
+  findAdminList(type?: DocumentType, fiscalYear?: string) {
+    return this.prisma.document.findMany({
+      where: { ...(type && { type }), ...(fiscalYear && { fiscalYear }) },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        department: { select: { id: true, name: true } },
+        uploadedBy: { select: { id: true, fullName: true } },
+      },
+    });
+  }
+
   async findOne(id: string) {
-    const doc = await this.prisma.document.findUnique({ where: { id }, include: { department: true, uploadedBy: { select: { id: true, fullName: true } } } });
+    const doc = await this.prisma.document.findUnique({
+      where: { id },
+      include: {
+        department: true,
+        uploadedBy: { select: { id: true, fullName: true } },
+      },
+    });
     if (!doc) throw new NotFoundException(`Document "${id}" not found`);
-    await this.prisma.document.update({ where: { id }, data: { downloadCount: { increment: 1 } } });
+    await this.prisma.document.update({
+      where: { id },
+      data: { downloadCount: { increment: 1 } },
+    });
     return doc;
   }
 

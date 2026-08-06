@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, Query, UseGuards } from '@nestjs/common';
+import {
+  Controller,, ApiOperation
+  Get,
+  Post,
+  Patch,
+  Delete,
+  Body,
+  Param,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { DocumentsService } from './documents.service';
 import { CreateDocumentDto } from './dto/create-document.dto';
@@ -14,15 +24,49 @@ import { DocumentType } from '../common/enums';
 export class DocumentsController {
   constructor(private readonly documentsService: DocumentsService) {}
 
-  @Public() @Get() findAll(@Query('type') type?: DocumentType, @Query('fiscalYear') fiscalYear?: string) { return this.documentsService.findAll(type, fiscalYear); }
-  @Public() @Get(':id') findOne(@Param('id') id: string) { return this.documentsService.findOne(id); }
+  @Public() @Get() findAll(
+    @Query('type') type?: DocumentType,
+    @Query('fiscalYear') fiscalYear?: string,
+  ) {
+    return this.documentsService.findAll(type, fiscalYear);
+  }
 
-  @Post() @ApiBearerAuth() @Roles('ADMIN' as any, 'SUPER_ADMIN' as any, 'DEPARTMENT_HEAD' as any) @UseGuards(RolesGuard)
-  create(@Body() dto: CreateDocumentDto, @CurrentUser('id') userId: string) { return this.documentsService.create(dto, userId); }
+  @Get('admin')
+  @Roles('ADMIN', 'SUPER_ADMIN')
+  @UseGuards(RolesGuard)
+  @ApiOperation({ summary: 'List all documents (admin only)' })
+  findAdmin(
+    @Query('type') type?: DocumentType,
+    @Query('fiscalYear') fiscalYear?: string,
+  ) {
+    return this.documentsService.findAdminList(type, fiscalYear);
+  }
 
-  @Patch(':id') @ApiBearerAuth() @Roles('ADMIN' as any, 'SUPER_ADMIN' as any) @UseGuards(RolesGuard)
-  update(@Param('id') id: string, @Body() dto: UpdateDocumentDto) { return this.documentsService.update(id, dto); }
+  @Public() @Get(':id') findOne(@Param('id') id: string) {
+    return this.documentsService.findOne(id);
+  }
 
-  @Delete(':id') @ApiBearerAuth() @Roles('SUPER_ADMIN' as any) @UseGuards(RolesGuard)
-  remove(@Param('id') id: string) { return this.documentsService.remove(id); }
+  @Post()
+  @ApiBearerAuth()
+  @Roles('ADMIN' as any, 'SUPER_ADMIN' as any, 'DEPARTMENT_HEAD' as any)
+  @UseGuards(RolesGuard)
+  create(@Body() dto: CreateDocumentDto, @CurrentUser('id') userId: string) {
+    return this.documentsService.create(dto, userId);
+  }
+
+  @Patch(':id')
+  @ApiBearerAuth()
+  @Roles('ADMIN' as any, 'SUPER_ADMIN' as any)
+  @UseGuards(RolesGuard)
+  update(@Param('id') id: string, @Body() dto: UpdateDocumentDto) {
+    return this.documentsService.update(id, dto);
+  }
+
+  @Delete(':id')
+  @ApiBearerAuth()
+  @Roles('SUPER_ADMIN' as any)
+  @UseGuards(RolesGuard)
+  remove(@Param('id') id: string) {
+    return this.documentsService.remove(id);
+  }
 }

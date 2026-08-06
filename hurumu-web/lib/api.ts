@@ -16,11 +16,29 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Requests where a 401 means "wrong credentials", not "expired token" —
+// these should never trigger the refresh/redirect flow.
+const AUTH_ENDPOINTS = ['/auth/login', '/auth/refresh', '/auth/register'];
+
+function isAuthEndpoint(url?: string) {
+  if (!url) return false;
+  return AUTH_ENDPOINTS.some((path) => url.includes(path));
+}
+
 // Auto-refresh on 401
 api.interceptors.response.use(
   (res) => res,
   async (err) => {
     const original = err.config;
+
+    // Don't try to "refresh" a token when the failing request WAS the
+    // login/refresh call itself — that 401 just means bad credentials,
+    // and previously this was silently redirecting to /login, wiping
+    // out the real error message before the user could see it.
+    if (isAuthEndpoint(original?.url)) {
+      return Promise.reject(err);
+    }
+
     if (err.response?.status === 401 && !original._retry) {
       original._retry = true;
       try {

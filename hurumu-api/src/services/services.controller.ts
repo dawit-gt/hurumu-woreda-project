@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, Query, UseGuards } from '@nestjs/common';
+import {
+  Controller,, ApiOperation
+  Get,
+  Post,
+  Patch,
+  Delete,
+  Body,
+  Param,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { ServicesService } from './services.service';
 import { CreateServiceDto } from './dto/create-service.dto';
@@ -14,23 +24,58 @@ import { ServiceCategory } from '../common/enums';
 export class ServicesController {
   constructor(private readonly servicesService: ServicesService) {}
 
-  @Public() @Get() @ApiQuery({ name: 'category', enum: ServiceCategory, required: false })
-  findAll(@Query('category') category?: ServiceCategory) { return this.servicesService.findAll(category); }
+  @Public()
+  @Get()
+  @ApiQuery({ name: 'category', enum: ServiceCategory, required: false })
+  findAll(@Query('category') category?: ServiceCategory) {
+    return this.servicesService.findAll(category);
+  }
 
-  @Public() @Get('track/:ref')
-  trackApplication(@Param('ref') ref: string) { return this.servicesService.trackApplication(ref); }
+  @Get('admin')
+  @Roles('ADMIN', 'SUPER_ADMIN')
+  @UseGuards(RolesGuard)
+  @ApiOperation({ summary: 'List all services (admin only)' })
+  findAdmin(@Query('category') category?: ServiceCategory) {
+    return this.servicesService.findAdminList(category);
+  }
 
-  @Public() @Get(':slug') findOne(@Param('slug') slug: string) { return this.servicesService.findBySlug(slug); }
+  @Public()
+  @Get('track/:ref')
+  trackApplication(@Param('ref') ref: string) {
+    return this.servicesService.trackApplication(ref);
+  }
 
-  @Public() @Post(':id/apply')
-  apply(@Param('id') id: string, @Body() dto: CreateApplicationDto) { return this.servicesService.submitApplication(id, dto); }
+  @Public() @Get(':slug') findOne(@Param('slug') slug: string) {
+    return this.servicesService.findBySlug(slug);
+  }
 
-  @Post() @ApiBearerAuth() @Roles('ADMIN' as any, 'SUPER_ADMIN' as any) @UseGuards(RolesGuard)
-  create(@Body() dto: CreateServiceDto) { return this.servicesService.create(dto); }
+  @Public()
+  @Post(':id/apply')
+  apply(@Param('id') id: string, @Body() dto: CreateApplicationDto) {
+    return this.servicesService.submitApplication(id, dto);
+  }
 
-  @Patch(':id') @ApiBearerAuth() @Roles('ADMIN' as any, 'SUPER_ADMIN' as any) @UseGuards(RolesGuard)
-  update(@Param('id') id: string, @Body() dto: UpdateServiceDto) { return this.servicesService.update(id, dto); }
+  @Post()
+  @ApiBearerAuth()
+  @Roles('ADMIN' as any, 'SUPER_ADMIN' as any)
+  @UseGuards(RolesGuard)
+  create(@Body() dto: CreateServiceDto) {
+    return this.servicesService.create(dto);
+  }
 
-  @Delete(':id') @ApiBearerAuth() @Roles('SUPER_ADMIN' as any) @UseGuards(RolesGuard)
-  remove(@Param('id') id: string) { return this.servicesService.remove(id); }
+  @Patch(':id')
+  @ApiBearerAuth()
+  @Roles('ADMIN' as any, 'SUPER_ADMIN' as any)
+  @UseGuards(RolesGuard)
+  update(@Param('id') id: string, @Body() dto: UpdateServiceDto) {
+    return this.servicesService.update(id, dto);
+  }
+
+  @Delete(':id')
+  @ApiBearerAuth()
+  @Roles('SUPER_ADMIN' as any)
+  @UseGuards(RolesGuard)
+  remove(@Param('id') id: string) {
+    return this.servicesService.remove(id);
+  }
 }

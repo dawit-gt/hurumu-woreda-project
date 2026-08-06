@@ -14,7 +14,12 @@ export interface Paginated<T> {
 }
 
 // ─── Domain types ─────────────────────────────────────────────────
-export type Role = 'SUPER_ADMIN' | 'ADMIN' | 'DEPARTMENT_HEAD' | 'STAFF' | 'PUBLIC';
+export type Role =
+  | "SUPER_ADMIN"
+  | "ADMIN"
+  | "DEPARTMENT_HEAD"
+  | "STAFF"
+  | "PUBLIC";
 
 export interface User {
   id: string;
@@ -25,7 +30,7 @@ export interface User {
   isActive: boolean;
   avatarUrl?: string;
   departmentId?: string;
-  department?: Pick<Department, 'id' | 'name'>;
+  department?: Pick<Department, "id" | "name">;
   createdAt: string;
   updatedAt: string;
 }
@@ -56,13 +61,19 @@ export interface Kebele {
   phone?: string;
 }
 
-export type NewsTag = 'ANNOUNCEMENT' | 'EVENT' | 'NOTICE' | 'PROJECT' | 'TENDER';
-export type NewsStatus = 'DRAFT' | 'PUBLISHED' | 'ARCHIVED';
+export type NewsTag =
+  | "ANNOUNCEMENT"
+  | "EVENT"
+  | "NOTICE"
+  | "PROJECT"
+  | "TENDER";
+export type NewsStatus = "DRAFT" | "PUBLISHED" | "ARCHIVED";
 
 export interface NewsItem {
   id: string;
   title: string;
   titleOromoo?: string;
+  titleAmharic?: string;
   slug: string;
   excerpt: string;
   content: string;
@@ -72,20 +83,29 @@ export interface NewsItem {
   featuredImage?: string;
   publishedAt?: string;
   viewCount: number;
-  author: Pick<User, 'id' | 'fullName'>;
-  department?: Pick<Department, 'id' | 'name'>;
+  author: Pick<User, "id" | "fullName">;
+  departmentId?: string;
+  department?: Pick<Department, "id" | "name">;
   createdAt: string;
 }
 
 export type ServiceCategory =
-  | 'CIVIL_REGISTRATION' | 'LAND_ADMINISTRATION' | 'BUSINESS_LICENSE'
-  | 'AGRICULTURE' | 'HEALTH' | 'EDUCATION' | 'INFRASTRUCTURE'
-  | 'SOCIAL_SERVICES' | 'FINANCE' | 'OTHER';
+  | "CIVIL_REGISTRATION"
+  | "LAND_ADMINISTRATION"
+  | "BUSINESS_LICENSE"
+  | "AGRICULTURE"
+  | "HEALTH"
+  | "EDUCATION"
+  | "INFRASTRUCTURE"
+  | "SOCIAL_SERVICES"
+  | "FINANCE"
+  | "OTHER";
 
 export interface Service {
   id: string;
   name: string;
   nameOromoo?: string;
+  nameAmharic?: string;
   slug: string;
   description: string;
   category: ServiceCategory;
@@ -96,12 +116,19 @@ export interface Service {
   steps: string[];
   isOnline: boolean;
   isActive: boolean;
-  department?: Pick<Department, 'id' | 'name'>;
+  departmentId?: string;
+  department?: Pick<Department, "id" | "name">;
 }
 
 export type DocumentType =
-  | 'BUDGET_REPORT' | 'PROCUREMENT_PLAN' | 'PERFORMANCE_REPORT'
-  | 'POLICY' | 'GUIDELINE' | 'TENDER_DOCUMENT' | 'ANNUAL_PLAN' | 'OTHER';
+  | "BUDGET_REPORT"
+  | "PROCUREMENT_PLAN"
+  | "PERFORMANCE_REPORT"
+  | "POLICY"
+  | "GUIDELINE"
+  | "TENDER_DOCUMENT"
+  | "ANNUAL_PLAN"
+  | "OTHER";
 
 export interface Document {
   id: string;
@@ -115,7 +142,7 @@ export interface Document {
   quarter?: number;
   isPublic: boolean;
   downloadCount: number;
-  department?: Pick<Department, 'id' | 'name'>;
+  department?: Pick<Department, "id" | "name">;
   createdAt: string;
 }
 

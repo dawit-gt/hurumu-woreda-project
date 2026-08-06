@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, Query, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Delete,
+  Body,
+  Param,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { NewsService } from './news.service';
 import { CreateNewsDto } from './dto/create-news.dto';
@@ -17,12 +27,24 @@ export class NewsController {
   @Public()
   @Get()
   @ApiOperation({ summary: 'List published news (public)' })
-  findAll(@Query() query: NewsQueryDto) { return this.newsService.findAll(query); }
+  findAll(@Query() query: NewsQueryDto) {
+    return this.newsService.findAll(query, true);
+  }
+
+  @Get('admin')
+  @Roles('ADMIN', 'SUPER_ADMIN')
+  @UseGuards(RolesGuard)
+  @ApiOperation({ summary: 'List all news items (admin only)' })
+  findAdmin(@Query() query: NewsQueryDto) {
+    return this.newsService.findAll(query, false);
+  }
 
   @Public()
   @Get(':slug')
   @ApiOperation({ summary: 'Get news by slug (public)' })
-  findOne(@Param('slug') slug: string) { return this.newsService.findBySlug(slug); }
+  findOne(@Param('slug') slug: string) {
+    return this.newsService.findBySlug(slug);
+  }
 
   @Post()
   @ApiBearerAuth()
@@ -45,5 +67,7 @@ export class NewsController {
   @ApiBearerAuth()
   @Roles('ADMIN', 'SUPER_ADMIN')
   @UseGuards(RolesGuard)
-  remove(@Param('id') id: string) { return this.newsService.remove(id); }
+  remove(@Param('id') id: string) {
+    return this.newsService.remove(id);
+  }
 }

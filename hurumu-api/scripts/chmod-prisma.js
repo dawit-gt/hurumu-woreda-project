@@ -23,6 +23,8 @@ if (existsSync('./node_modules/.bin/prisma')) {
 }
 
 // Make any prisma-related engine binaries executable (query-engine, libquery_engine, etc.)
-run("find ./node_modules -type f \( -name 'prisma' -o -name 'query-engine*' -o -name 'libquery_engine*' \) -exec chmod +x {} \; 2>/dev/null || true");
+run(
+  "find ./node_modules -type f \( -name 'prisma' -o -name 'query-engine*' -o -name 'libquery_engine*' \) -exec chmod +x {} \; 2>/dev/null || true",
+);
 
 console.log('[fix-prisma-perms] done');

@@ -10,7 +10,7 @@ const slides = [
     title: "Connecting Hurumu Residents with Services",
     description:
       "Fast, transparent access to civil, land, health, and education services for every community member.",
-    image: "/hero-1.svg",
+    image: "/hero-1.jpg",
     actionLabel: "Explore services",
     actionHref: "/services",
   },
@@ -18,7 +18,7 @@ const slides = [
     title: "News, Projects, and Community Updates",
     description:
       "Stay informed about local development, announcements, and public meetings across Hurumu Woreda.",
-    image: "/hero-2.svg",
+    image: "/hero-2.jpg",
     actionLabel: "See news",
     actionHref: "/news",
   },
@@ -26,7 +26,7 @@ const slides = [
     title: "Transparent Local Government for Oromia",
     description:
       "Reporting, transparency, and contact channels to strengthen trust and civic participation.",
-    image: "/hero-3.svg",
+    image: "/hero-3.jpg",
     actionLabel: "Learn more",
     actionHref: "/about",
   },

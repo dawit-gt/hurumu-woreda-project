@@ -73,7 +73,7 @@ const badgeText = {
   am: "ሁሩሙ ወረዳ · የማህበረሰብ አገልግሎት",
 };
 
-const AUTO_ADVANCE_MS = 8000;
+const AUTO_ADVANCE_MS = 4000;
 
 export default function HeroCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);

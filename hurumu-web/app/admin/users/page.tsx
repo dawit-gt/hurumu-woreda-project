@@ -24,10 +24,10 @@ export default function UsersAdminPage() {
     error,
     isLoading,
     mutate,
-  } = useSWR<User[]>("/users", fetcher);
+  } = useSWR<User[]>("/users", arrayFetcher);
   const { data: departments = [] } = useSWR<Department[]>(
     "/departments",
-    fetcher,
+    arrayFetcher,
   );
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [form, setForm] = useState<UserForm>(emptyForm);

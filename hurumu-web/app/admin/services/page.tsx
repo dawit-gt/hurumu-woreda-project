@@ -43,10 +43,10 @@ export default function ServicesAdminPage() {
     error,
     isLoading,
     mutate,
-  } = useSWR<Service[]>("/services/admin", fetcher);
+  } = useSWR<Service[]>("/services/admin", arrayFetcher);
   const { data: departments = [] } = useSWR<Department[]>(
     "/departments",
-    fetcher,
+    arrayFetcher,
   );
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [form, setForm] = useState<ServiceForm>(emptyForm);

@@ -38,10 +38,10 @@ export default function DocumentsAdminPage() {
     error,
     isLoading,
     mutate,
-  } = useSWR<Document[]>("/documents/admin", fetcher);
+  } = useSWR<Document[]>("/documents/admin", arrayFetcher);
   const { data: departments = [] } = useSWR<Department[]>(
     "/departments",
-    fetcher,
+    arrayFetcher,
   );
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [form, setForm] = useState<DocumentForm>(emptyForm);

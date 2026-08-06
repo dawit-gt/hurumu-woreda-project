@@ -37,10 +37,10 @@ export default function NewsAdminPage() {
     error,
     isLoading,
     mutate,
-  } = useSWR<NewsItem[]>("/news/admin", fetcher);
+  } = useSWR<NewsItem[]>("/news/admin", arrayFetcher);
   const { data: departments = [] } = useSWR<Department[]>(
     "/departments",
-    fetcher,
+    arrayFetcher,
   );
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [form, setForm] = useState<NewsForm>(emptyForm);

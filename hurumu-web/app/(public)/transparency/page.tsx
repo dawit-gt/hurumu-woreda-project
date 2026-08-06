@@ -1,8 +1,13 @@
+'use client';
+
 import { FileText, Download, Calendar, Building2 } from 'lucide-react';
+import LocalizedText from '@/components/layout/LocalizedText';
+import { useLanguage } from '@/components/layout/LanguageProvider';
+import { selectByLanguage } from '@/lib/i18n';
 
 const DOCUMENTS = [
   {
-    category: 'Budget Reports',
+    category: { en: 'Budget Reports', om: 'Gabaasa Baajataa', am: 'የበጀት ሪፖርቶች' },
     items: [
       { title: 'Annual Budget 2025/26', description: 'Approved annual budget for all departments and programs', fiscalYear: '2025/26', type: 'BUDGET_REPORT', size: '2.4 MB', date: '2025-07-01', fileUrl: '#' },
       { title: 'Q3 Budget Utilization Report', description: 'Third quarter budget utilization and variance analysis', fiscalYear: '2025/26', type: 'BUDGET_REPORT', size: '1.1 MB', date: '2026-04-15', fileUrl: '#' },
@@ -10,21 +15,21 @@ const DOCUMENTS = [
     ],
   },
   {
-    category: 'Procurement Plans',
+    category: { en: 'Procurement Plans', om: 'Karoora Bittaa', am: 'የግዥ እቅዶች' },
     items: [
       { title: 'Annual Procurement Plan 2025/26', description: 'Planned procurement of goods, works, and services for the year', fiscalYear: '2025/26', type: 'PROCUREMENT_PLAN', size: '1.8 MB', date: '2025-08-10', fileUrl: '#' },
       { title: 'Infrastructure Tender — Road Rehabilitation', description: 'Tender document for Hurumu-Metu road rehabilitation project', fiscalYear: '2025/26', type: 'TENDER_DOCUMENT', size: '3.2 MB', date: '2026-05-20', fileUrl: '#' },
     ],
   },
   {
-    category: 'Performance Reports',
+    category: { en: 'Performance Reports', om: 'Gabaasa Raawwii', am: 'የአፈጻጸም ሪፖርቶች' },
     items: [
       { title: 'Q3 Performance Report 2025/26', description: 'Third quarter performance review across all woreda departments', fiscalYear: '2025/26', type: 'PERFORMANCE_REPORT', size: '2.8 MB', date: '2026-04-30', fileUrl: '#' },
       { title: 'Annual Performance Report 2024/25', description: 'Year-end performance evaluation and achievement summary', fiscalYear: '2024/25', type: 'PERFORMANCE_REPORT', size: '4.1 MB', date: '2025-09-15', fileUrl: '#' },
     ],
   },
   {
-    category: 'Policies & Guidelines',
+    category: { en: 'Policies & Guidelines', om: 'Imaammataa fi Qajeelfama', am: 'ፖሊሲዎች እና መመሪያዎች' },
     items: [
       { title: 'Land Administration Policy', description: 'Official policy for land registration, use, and dispute resolution', fiscalYear: null, type: 'POLICY', size: '1.5 MB', date: '2024-01-10', fileUrl: '#' },
       { title: 'Public Procurement Guideline', description: 'Guidelines governing public procurement processes in the woreda', fiscalYear: null, type: 'GUIDELINE', size: '0.9 MB', date: '2023-06-01', fileUrl: '#' },
@@ -41,13 +46,13 @@ const TYPE_COLORS: Record<string, string> = {
   GUIDELINE:          'bg-gray-100 text-gray-600',
 };
 
-const TYPE_LABELS: Record<string, string> = {
-  BUDGET_REPORT:      'Budget',
-  PROCUREMENT_PLAN:   'Procurement',
-  TENDER_DOCUMENT:    'Tender',
-  PERFORMANCE_REPORT: 'Performance',
-  POLICY:             'Policy',
-  GUIDELINE:          'Guideline',
+const TYPE_LABELS: Record<string, { en: string; om: string; am: string }> = {
+  BUDGET_REPORT:      { en: 'Budget', om: 'Baajata', am: 'በጀት' },
+  PROCUREMENT_PLAN:   { en: 'Procurement', om: 'Bittaa', am: 'ግዥ' },
+  TENDER_DOCUMENT:    { en: 'Tender', om: 'Dorgommii', am: 'ጨረታ' },
+  PERFORMANCE_REPORT: { en: 'Performance', om: 'Raawwii', am: 'አፈጻጸም' },
+  POLICY:             { en: 'Policy', om: 'Imaammata', am: 'ፖሊሲ' },
+  GUIDELINE:          { en: 'Guideline', om: 'Qajeelfama', am: 'መመሪያ' },
 };
 
 function formatDate(d: string) {
@@ -55,14 +60,27 @@ function formatDate(d: string) {
 }
 
 export default function TransparencyPage() {
+  const { language } = useLanguage();
+  const t = (en: string, om: string, am: string) => selectByLanguage(language, en, om, am);
+
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Header */}
       <div className="bg-green-900 text-white py-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="text-xs font-bold text-yellow-400 uppercase tracking-widest mb-2">Open Government</div>
-          <h1 className="text-3xl font-extrabold mb-2">Transparency Portal</h1>
-          <p className="text-green-200 text-sm">Budget reports, procurement plans, and performance documents</p>
+          <div className="text-xs font-bold text-yellow-400 uppercase tracking-widest mb-2">
+            <LocalizedText en="Open Government" om="Bulchiinsa Ifaa" am="ግልጽ መንግስት" />
+          </div>
+          <h1 className="text-3xl font-extrabold mb-2">
+            <LocalizedText en="Transparency Portal" om="Marsariitii Ifummaa" am="የግልጽነት መግቢያ" />
+          </h1>
+          <p className="text-green-200 text-sm">
+            <LocalizedText
+              en="Budget reports, procurement plans, and performance documents"
+              om="Gabaasa baajataa, karoora bittaa fi galmeewwan raawwii"
+              am="የበጀት ሪፖርቶች፣ የግዥ እቅዶች እና የአፈጻጸም ሰነዶች"
+            />
+          </p>
         </div>
       </div>
 
@@ -71,17 +89,21 @@ export default function TransparencyPage() {
         <div className="max-w-7xl mx-auto flex items-start gap-3">
           <Building2 size={18} className="text-yellow-700 flex-shrink-0 mt-0.5" />
           <p className="text-sm text-yellow-800">
-            Hurumu Woreda Administration is committed to open and accountable governance. All budget, procurement, and performance documents are published here quarterly for public access.
+            <LocalizedText
+              en="Hurumu Woreda Administration is committed to open and accountable governance. All budget, procurement, and performance documents are published here quarterly for public access."
+              om="Bulchiinsi Hurumu Woreedaa bulchiinsa ifaa fi itti gaafatamummaa qabuuf hojjeta. Galmeewwan baajataa, bittaa fi raawwii hundi ji'a ji'aan hawaasaaf asitti maxxanfamu."
+              am="የሁሩሙ ወረዳ አስተዳደር ግልጽ እና ተጠያቂነት ላለው አስተዳደር ቁርጠኛ ነው። ሁሉም የበጀት፣ የግዥ እና የአፈጻጸም ሰነዶች በየሩብ ዓመቱ ለህዝብ ጥቅም እዚህ ይታተማሉ።"
+            />
           </p>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-10 space-y-10">
         {DOCUMENTS.map(section => (
-          <div key={section.category}>
+          <div key={section.category.en}>
             <h2 className="text-base font-bold text-gray-900 mb-4 flex items-center gap-2">
               <FileText size={16} className="text-green-700" />
-              {section.category}
+              <LocalizedText en={section.category.en} om={section.category.om} am={section.category.am} />
             </h2>
             <div className="grid md:grid-cols-2 gap-4">
               {section.items.map(doc => (
@@ -93,7 +115,7 @@ export default function TransparencyPage() {
                     <div className="flex items-start justify-between gap-2 mb-1">
                       <h3 className="text-sm font-bold text-gray-900 leading-snug">{doc.title}</h3>
                       <span className={`text-xs font-bold px-2 py-0.5 rounded uppercase tracking-wide flex-shrink-0 ${TYPE_COLORS[doc.type]}`}>
-                        {TYPE_LABELS[doc.type]}
+                        {t(TYPE_LABELS[doc.type].en, TYPE_LABELS[doc.type].om, TYPE_LABELS[doc.type].am)}
                       </span>
                     </div>
                     <p className="text-xs text-gray-500 mb-3 leading-relaxed">{doc.description}</p>
@@ -104,14 +126,15 @@ export default function TransparencyPage() {
                         </span>
                         {doc.fiscalYear && (
                           <span className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-medium">
-                            FY {doc.fiscalYear}
+                            {t('FY', 'Waggaa Baajataa', 'የበጀት ዓመት')} {doc.fiscalYear}
                           </span>
                         )}
                         <span>{doc.size}</span>
                       </div>
                       <a href={doc.fileUrl}
                         className="inline-flex items-center gap-1.5 text-xs font-bold text-green-800 hover:text-green-600 transition">
-                        <Download size={13} /> Download
+                        <Download size={13} />
+                        <LocalizedText en="Download" om="Buufadhu" am="አውርድ" />
                       </a>
                     </div>
                   </div>

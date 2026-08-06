@@ -13,13 +13,13 @@ const CATEGORY_COLORS: Record<string, string> = {
   EDUCATION: "bg-purple-50 text-purple-700",
 };
 
-const CATEGORY_LABELS: Record<string, string> = {
-  CIVIL_REGISTRATION: "Civil Registration",
-  LAND_ADMINISTRATION: "Land Administration",
-  BUSINESS_LICENSE: "Business License",
-  AGRICULTURE: "Agriculture",
-  HEALTH: "Health",
-  EDUCATION: "Education",
+const CATEGORY_LABELS: Record<string, { en: string; om: string; am: string }> = {
+  CIVIL_REGISTRATION: { en: "Civil Registration", om: "Galmee Ummataa", am: "የዜጎች ምዝገባ" },
+  LAND_ADMINISTRATION: { en: "Land Administration", om: "Bulchiinsa Lafaa", am: "የመሬት አስተዳደር" },
+  BUSINESS_LICENSE: { en: "Business License", om: "Hayyama Daldalaa", am: "የንግድ ፈቃድ" },
+  AGRICULTURE: { en: "Agriculture", om: "Qonnaa", am: "ግብርና" },
+  HEALTH: { en: "Health", om: "Fayyaa", am: "ጤና" },
+  EDUCATION: { en: "Education", om: "Barnoota", am: "ትምህርት" },
 };
 
 export default function ServicesList({ services }: { services: any[] }) {
@@ -85,10 +85,8 @@ export default function ServicesList({ services }: { services: any[] }) {
           >
             <div className="flex items-start justify-between mb-4">
               <div className="text-3xl">{svc.icon}</div>
-              <span
-                className={`text-xs font-bold px-2 py-0.5 rounded uppercase tracking-wide ${CATEGORY_COLORS[svc.category] ?? "bg-gray-100 text-gray-600"}`}
-              >
-                {CATEGORY_LABELS[svc.category]}
+              <span className={`text-xs font-bold px-2 py-0.5 rounded uppercase tracking-wide ${CATEGORY_COLORS[svc.category] ?? "bg-gray-100 text-gray-600"}`}>
+               {selectByLanguage(language, CATEGORY_LABELS[svc.category].en, CATEGORY_LABELS[svc.category].om, CATEGORY_LABELS[svc.category].am)}
               </span>
             </div>
             <h3 className="text-base font-bold text-gray-900 mb-0.5 group-hover:text-green-800 transition">

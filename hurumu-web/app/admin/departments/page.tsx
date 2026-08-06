@@ -21,7 +21,10 @@ const emptyForm = {
 type DepartmentForm = typeof emptyForm;
 
 export default function DepartmentsAdminPage() {
-  const { data, error, isLoading, mutate } = useSWR("/departments", fetcher);
+  const { data, error, isLoading, mutate } = useSWR<Department[]>(
+    "/departments",
+    arrayFetcher,
+  );
   const [form, setForm] = useState<DepartmentForm>(emptyForm);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [message, setMessage] = useState<string>("");

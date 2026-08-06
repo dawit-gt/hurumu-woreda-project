@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { AuthProvider } from '@/lib/auth';
+'use client';
 
 export const metadata: Metadata = {
   title: { default: 'Hurumu Woreda Administration', template: '%s | Hurumu Woreda' },
@@ -17,5 +18,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </AuthProvider>
       </body>
     </html>
+  );
+}
+import { SWRConfig } from 'swr';
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  return (
+    <SWRConfig value={{ fetcher }}>
+      {children}
+    </SWRConfig>
   );
 }

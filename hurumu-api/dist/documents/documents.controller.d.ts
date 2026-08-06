@@ -11,150 +11,150 @@ export declare class DocumentsController {
             name: string;
         };
     } & {
+        isPublic: boolean;
+        type: import(".prisma/client").$Enums.DocumentType;
+        fiscalYear: string;
         id: string;
         title: string;
         titleOromoo: string;
-        departmentId: string;
-        createdAt: Date;
-        updatedAt: Date;
         description: string;
-        isPublic: boolean;
-        type: import(".prisma/client").$Enums.DocumentType;
         fileUrl: string;
         fileSize: number;
         mimeType: string;
-        fiscalYear: string;
         quarter: number;
         downloadCount: number;
         uploadedById: string;
+        departmentId: string;
+        createdAt: Date;
+        updatedAt: Date;
     })[]>;
     findAdmin(type?: DocumentType, fiscalYear?: string): import(".prisma/client").Prisma.PrismaPromise<({
-        department: {
-            id: string;
-            name: string;
-        };
         uploadedBy: {
             id: string;
             fullName: string;
         };
+        department: {
+            id: string;
+            name: string;
+        };
     } & {
+        isPublic: boolean;
+        type: import(".prisma/client").$Enums.DocumentType;
+        fiscalYear: string;
         id: string;
         title: string;
         titleOromoo: string;
-        departmentId: string;
-        createdAt: Date;
-        updatedAt: Date;
         description: string;
-        isPublic: boolean;
-        type: import(".prisma/client").$Enums.DocumentType;
         fileUrl: string;
         fileSize: number;
         mimeType: string;
-        fiscalYear: string;
         quarter: number;
         downloadCount: number;
         uploadedById: string;
+        departmentId: string;
+        createdAt: Date;
+        updatedAt: Date;
     })[]>;
     findOne(id: string): Promise<{
+        uploadedBy: {
+            id: string;
+            fullName: string;
+        };
         department: {
             id: string;
-            slug: string;
+            description: string;
             createdAt: Date;
             updatedAt: Date;
-            email: string;
-            phone: string;
-            isActive: boolean;
             name: string;
             nameOromoo: string;
             nameAmharic: string;
-            description: string;
+            slug: string;
             iconName: string;
             headName: string;
+            phone: string;
+            email: string;
+            isActive: boolean;
             sortOrder: number;
         };
+    } & {
+        isPublic: boolean;
+        type: import(".prisma/client").$Enums.DocumentType;
+        fiscalYear: string;
+        id: string;
+        title: string;
+        titleOromoo: string;
+        description: string;
+        fileUrl: string;
+        fileSize: number;
+        mimeType: string;
+        quarter: number;
+        downloadCount: number;
+        uploadedById: string;
+        departmentId: string;
+        createdAt: Date;
+        updatedAt: Date;
+    }>;
+    create(dto: CreateDocumentDto, userId: string): import(".prisma/client").Prisma.Prisma__DocumentClient<{
         uploadedBy: {
             id: string;
             fullName: string;
         };
-    } & {
-        id: string;
-        title: string;
-        titleOromoo: string;
-        departmentId: string;
-        createdAt: Date;
-        updatedAt: Date;
-        description: string;
-        isPublic: boolean;
-        type: import(".prisma/client").$Enums.DocumentType;
-        fileUrl: string;
-        fileSize: number;
-        mimeType: string;
-        fiscalYear: string;
-        quarter: number;
-        downloadCount: number;
-        uploadedById: string;
-    }>;
-    create(dto: CreateDocumentDto, userId: string): import(".prisma/client").Prisma.Prisma__DocumentClient<{
         department: {
             id: string;
             name: string;
         };
-        uploadedBy: {
-            id: string;
-            fullName: string;
-        };
     } & {
+        isPublic: boolean;
+        type: import(".prisma/client").$Enums.DocumentType;
+        fiscalYear: string;
         id: string;
         title: string;
         titleOromoo: string;
-        departmentId: string;
-        createdAt: Date;
-        updatedAt: Date;
         description: string;
-        isPublic: boolean;
-        type: import(".prisma/client").$Enums.DocumentType;
         fileUrl: string;
         fileSize: number;
         mimeType: string;
-        fiscalYear: string;
         quarter: number;
         downloadCount: number;
         uploadedById: string;
+        departmentId: string;
+        createdAt: Date;
+        updatedAt: Date;
     }, never, import("@prisma/client/runtime/library").DefaultArgs>;
     update(id: string, dto: UpdateDocumentDto): Promise<{
+        isPublic: boolean;
+        type: import(".prisma/client").$Enums.DocumentType;
+        fiscalYear: string;
         id: string;
         title: string;
         titleOromoo: string;
-        departmentId: string;
-        createdAt: Date;
-        updatedAt: Date;
         description: string;
-        isPublic: boolean;
-        type: import(".prisma/client").$Enums.DocumentType;
         fileUrl: string;
         fileSize: number;
         mimeType: string;
-        fiscalYear: string;
         quarter: number;
         downloadCount: number;
         uploadedById: string;
+        departmentId: string;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     remove(id: string): Promise<{
+        isPublic: boolean;
+        type: import(".prisma/client").$Enums.DocumentType;
+        fiscalYear: string;
         id: string;
         title: string;
         titleOromoo: string;
-        departmentId: string;
-        createdAt: Date;
-        updatedAt: Date;
         description: string;
-        isPublic: boolean;
-        type: import(".prisma/client").$Enums.DocumentType;
         fileUrl: string;
         fileSize: number;
         mimeType: string;
-        fiscalYear: string;
         quarter: number;
         downloadCount: number;
         uploadedById: string;
+        departmentId: string;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
 }

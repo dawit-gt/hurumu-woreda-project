@@ -12,24 +12,24 @@ export declare class ServicesController {
             name: string;
         };
     } & {
+        category: import(".prisma/client").$Enums.ServiceCategory;
         id: string;
-        slug: string;
-        departmentId: string;
-        createdAt: Date;
-        updatedAt: Date;
-        isActive: boolean;
         name: string;
         nameOromoo: string;
         nameAmharic: string;
+        slug: string;
         description: string;
         iconName: string;
-        sortOrder: number;
-        category: import(".prisma/client").$Enums.ServiceCategory;
         fee: number;
         processingDays: number;
         requiredDocs: string[];
         steps: string[];
         isOnline: boolean;
+        isActive: boolean;
+        sortOrder: number;
+        departmentId: string;
+        createdAt: Date;
+        updatedAt: Date;
     })[]>;
     findAdmin(category?: ServiceCategory): import(".prisma/client").Prisma.PrismaPromise<({
         department: {
@@ -37,24 +37,24 @@ export declare class ServicesController {
             name: string;
         };
     } & {
+        category: import(".prisma/client").$Enums.ServiceCategory;
         id: string;
-        slug: string;
-        departmentId: string;
-        createdAt: Date;
-        updatedAt: Date;
-        isActive: boolean;
         name: string;
         nameOromoo: string;
         nameAmharic: string;
+        slug: string;
         description: string;
         iconName: string;
-        sortOrder: number;
-        category: import(".prisma/client").$Enums.ServiceCategory;
         fee: number;
         processingDays: number;
         requiredDocs: string[];
         steps: string[];
         isOnline: boolean;
+        isActive: boolean;
+        sortOrder: number;
+        departmentId: string;
+        createdAt: Date;
+        updatedAt: Date;
     })[]>;
     trackApplication(ref: string): Promise<{
         service: {
@@ -63,24 +63,24 @@ export declare class ServicesController {
         kebele: {
             number: number;
             id: string;
+            name: string;
+            nameOromoo: string;
             createdAt: Date;
             updatedAt: Date;
             phone: string;
-            name: string;
-            nameOromoo: string;
             population: number;
             area: number;
             chairperson: string;
         };
     } & {
         id: string;
-        status: import(".prisma/client").$Enums.ApplicationStatus;
-        updatedAt: Date;
         description: string;
+        updatedAt: Date;
         referenceNumber: string;
         applicantName: string;
         applicantPhone: string;
         applicantEmail: string;
+        status: import(".prisma/client").$Enums.ApplicationStatus;
         reviewNotes: string;
         attachments: string[];
         serviceId: string;
@@ -92,39 +92,39 @@ export declare class ServicesController {
     findOne(slug: string): Promise<{
         department: {
             id: string;
-            slug: string;
-            createdAt: Date;
-            updatedAt: Date;
-            email: string;
-            phone: string;
-            isActive: boolean;
             name: string;
             nameOromoo: string;
             nameAmharic: string;
+            slug: string;
             description: string;
             iconName: string;
-            headName: string;
+            isActive: boolean;
             sortOrder: number;
+            createdAt: Date;
+            updatedAt: Date;
+            headName: string;
+            phone: string;
+            email: string;
         };
     } & {
+        category: import(".prisma/client").$Enums.ServiceCategory;
         id: string;
-        slug: string;
-        departmentId: string;
-        createdAt: Date;
-        updatedAt: Date;
-        isActive: boolean;
         name: string;
         nameOromoo: string;
         nameAmharic: string;
+        slug: string;
         description: string;
         iconName: string;
-        sortOrder: number;
-        category: import(".prisma/client").$Enums.ServiceCategory;
         fee: number;
         processingDays: number;
         requiredDocs: string[];
         steps: string[];
         isOnline: boolean;
+        isActive: boolean;
+        sortOrder: number;
+        departmentId: string;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     apply(id: string, dto: CreateApplicationDto): Promise<{
         service: {
@@ -133,13 +133,13 @@ export declare class ServicesController {
         };
     } & {
         id: string;
-        status: import(".prisma/client").$Enums.ApplicationStatus;
-        updatedAt: Date;
         description: string;
+        updatedAt: Date;
         referenceNumber: string;
         applicantName: string;
         applicantPhone: string;
         applicantEmail: string;
+        status: import(".prisma/client").$Enums.ApplicationStatus;
         reviewNotes: string;
         attachments: string[];
         serviceId: string;
@@ -149,63 +149,63 @@ export declare class ServicesController {
         resolvedAt: Date;
     }>;
     create(dto: CreateServiceDto): import(".prisma/client").Prisma.Prisma__ServiceClient<{
+        category: import(".prisma/client").$Enums.ServiceCategory;
         id: string;
-        slug: string;
-        departmentId: string;
-        createdAt: Date;
-        updatedAt: Date;
-        isActive: boolean;
         name: string;
         nameOromoo: string;
         nameAmharic: string;
+        slug: string;
         description: string;
         iconName: string;
-        sortOrder: number;
-        category: import(".prisma/client").$Enums.ServiceCategory;
         fee: number;
         processingDays: number;
         requiredDocs: string[];
         steps: string[];
         isOnline: boolean;
+        isActive: boolean;
+        sortOrder: number;
+        departmentId: string;
+        createdAt: Date;
+        updatedAt: Date;
     }, never, import("@prisma/client/runtime/library").DefaultArgs>;
     update(id: string, dto: UpdateServiceDto): Promise<{
+        category: import(".prisma/client").$Enums.ServiceCategory;
         id: string;
-        slug: string;
-        departmentId: string;
-        createdAt: Date;
-        updatedAt: Date;
-        isActive: boolean;
         name: string;
         nameOromoo: string;
         nameAmharic: string;
+        slug: string;
         description: string;
         iconName: string;
-        sortOrder: number;
-        category: import(".prisma/client").$Enums.ServiceCategory;
         fee: number;
         processingDays: number;
         requiredDocs: string[];
         steps: string[];
         isOnline: boolean;
+        isActive: boolean;
+        sortOrder: number;
+        departmentId: string;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     remove(id: string): Promise<{
+        category: import(".prisma/client").$Enums.ServiceCategory;
         id: string;
-        slug: string;
-        departmentId: string;
-        createdAt: Date;
-        updatedAt: Date;
-        isActive: boolean;
         name: string;
         nameOromoo: string;
         nameAmharic: string;
+        slug: string;
         description: string;
         iconName: string;
-        sortOrder: number;
-        category: import(".prisma/client").$Enums.ServiceCategory;
         fee: number;
         processingDays: number;
         requiredDocs: string[];
         steps: string[];
         isOnline: boolean;
+        isActive: boolean;
+        sortOrder: number;
+        departmentId: string;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
 }

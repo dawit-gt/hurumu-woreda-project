@@ -55,7 +55,7 @@ let ServicesController = exports.ServicesController = class ServicesController {
 __decorate([
     (0, public_decorator_1.Public)(),
     (0, common_1.Get)(),
-    (0, swagger_1.ApiQuery)({ name: 'category', enum: enums_1.ServiceCategory, required: false }),
+    ApiQuery({ name: 'category', enum: enums_1.ServiceCategory, required: false }),
     __param(0, (0, common_1.Query)('category')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -65,7 +65,7 @@ __decorate([
     (0, common_1.Get)('admin'),
     (0, roles_decorator_1.Roles)('ADMIN', 'SUPER_ADMIN'),
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
-    (0, common_1.ApiOperation)({ summary: 'List all services (admin only)' }),
+    (0, swagger_1.ApiOperation)({ summary: 'List all services (admin only)' }),
     __param(0, (0, common_1.Query)('category')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

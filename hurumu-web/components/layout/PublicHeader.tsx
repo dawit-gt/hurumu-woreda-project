@@ -1,10 +1,12 @@
 "use client";
+
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown, Globe } from "lucide-react";
 import { useLanguage, Language } from "./LanguageProvider";
-import { navLinks, publicLabels } from "@/lib/i18n";
+import { navLinks } from "@/lib/i18n";
 
 export default function PublicHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -12,11 +14,19 @@ export default function PublicHeader() {
   const [langOpen, setLangOpen] = useState(false);
   const langRef = useRef<HTMLDivElement>(null);
   const { language, setLanguage } = useLanguage();
+  
+  const pathname = usePathname();
 
   const languageLabel: Record<Language, string> = {
     en: "English",
     om: "Afaan Oromoo",
     am: "አማርኛ",
+  };
+
+  // Helper to check active state
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
   };
 
   useEffect(() => {
@@ -31,6 +41,7 @@ export default function PublicHeader() {
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
+      {/* Top Bar Decoration */}
       <div className="flex h-1">
         <div className="flex-1 bg-green-900" />
         <div className="flex-1 bg-yellow-600" />
@@ -39,6 +50,7 @@ export default function PublicHeader() {
         <div className="flex-1 bg-green-900" />
       </div>
 
+      {/* Top Utility Bar */}
       <div className="bg-gray-900 text-gray-400 text-xs py-1.5">
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
           <span>
@@ -79,6 +91,7 @@ export default function PublicHeader() {
         </div>
       </div>
 
+      {/* Main Header Container */}
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-3">
@@ -95,42 +108,64 @@ export default function PublicHeader() {
             </div>
           </Link>
 
+          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
-            {navLinks[language].map((link) => (
-              <div
-                key={link.label}
-                className="relative"
-                onMouseEnter={() =>
-                  link.children && setOpenDropdown(link.label)
-                }
-                onMouseLeave={() => setOpenDropdown(null)}
-              >
-                <Link
-                  href={link.href}
-                  className="flex items-center gap-1 px-3 py-2 text-sm font-semibold text-gray-800 hover:text-green-800 rounded-md hover:bg-gray-50 transition"
+            {navLinks[language].map((link) => {
+              const active = isActive(link.href);
+              const childActive = link.children?.some((child) => isActive(child.href));
+              const isParentActive = active || childActive;
+
+              return (
+                <div
+                  key={link.label}
+                  className="relative"
+                  onMouseEnter={() =>
+                    link.children && setOpenDropdown(link.label)
+                  }
+                  onMouseLeave={() => setOpenDropdown(null)}
                 >
-                  {link.label}
-                  {link.children && (
-                    <ChevronDown size={12} className="text-gray-400" />
+                  <Link
+                    href={link.href}
+                    className={`flex items-center gap-1 px-3 py-2 text-sm font-semibold rounded-md transition ${
+                      isParentActive
+                        ? "bg-green-100 text-green-900 font-bold"
+                        : "text-gray-800 hover:text-green-800 hover:bg-gray-50"
+                    }`}
+                  >
+                    {link.label}
+                    {link.children && (
+                      <ChevronDown
+                        size={12}
+                        className={isParentActive ? "text-green-900" : "text-gray-400"}
+                      />
+                    )}
+                  </Link>
+                  {link.children && openDropdown === link.label && (
+                    <div className="absolute top-full left-0 bg-white border border-gray-100 border-t-2 border-t-green-800 rounded-lg shadow-lg min-w-44 py-1 z-50">
+                      {link.children.map((child) => {
+                        const isChildActive = isActive(child.href);
+                        return (
+                          <Link
+                            key={child.label}
+                            href={child.href}
+                            className={`block px-4 py-2 text-sm transition ${
+                              isChildActive
+                                ? "bg-green-50 text-green-900 font-bold"
+                                : "text-gray-700 hover:bg-gray-50"
+                            }`}
+                          >
+                            {child.label}
+                          </Link>
+                        );
+                      })}
+                    </div>
                   )}
-                </Link>
-                {link.children && openDropdown === link.label && (
-                  <div className="absolute top-full left-0 bg-white border border-gray-100 border-t-2 border-t-green-800 rounded-lg shadow-lg min-w-44 py-1 z-50">
-                    {link.children.map((child) => (
-                      <Link
-                        key={child.label}
-                        href={child.href}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </nav>
 
+          {/* Mobile Menu Toggle Button */}
           <button
             className="lg:hidden p-2"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -140,20 +175,53 @@ export default function PublicHeader() {
         </div>
       </div>
 
+      {/* Mobile Drawer Navigation */}
       {mobileOpen && (
         <div className="lg:hidden border-t border-gray-100 bg-white px-4 py-3 space-y-1">
-          {navLinks[language].map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className="block px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50 rounded-md"
-              onClick={() => setMobileOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks[language].map((link) => {
+            const active = isActive(link.href);
+            return (
+              <div key={link.label}>
+                <Link
+                  href={link.href}
+                  className={`block px-3 py-2 text-sm font-medium rounded-md transition ${
+                    active
+                      ? "bg-green-100 text-green-900 font-bold"
+                      : "text-gray-800 hover:bg-gray-50"
+                  }`}
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {link.label}
+                </Link>
+                {/* Child Links for Mobile */}
+                {link.children && (
+                  <div className="pl-4 space-y-1 mt-1">
+                    {link.children.map((child) => {
+                      const childActive = isActive(child.href);
+                      return (
+                        <Link
+                          key={child.label}
+                          href={child.href}
+                          className={`block px-3 py-1.5 text-xs font-medium rounded-md transition ${
+                            childActive
+                              ? "bg-green-50 text-green-900 font-bold"
+                              : "text-gray-600 hover:bg-gray-50"
+                          }`}
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          {child.label}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
+
+      {/* Bottom Stripe Accent */}
       <div className="flex h-0.5">
         <div className="flex-1 bg-green-900" />
         <div className="flex-1 bg-yellow-600" />

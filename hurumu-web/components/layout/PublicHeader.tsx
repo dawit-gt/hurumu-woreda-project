@@ -103,12 +103,6 @@ export default function PublicHeader() {
                 )}
               </div>
             ))}
-            <Link
-              href="/auth/login"
-              className="ml-2 bg-green-800 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-700 transition"
-            >
-              {publicLabels[language].staffLogin}
-            </Link>
           </nav>
 
           <button
@@ -132,12 +126,6 @@ export default function PublicHeader() {
               {link.label}
             </Link>
           ))}
-          <Link
-            href="/auth/login"
-            className="block mt-2 bg-green-800 text-white text-center py-2 rounded-lg text-sm font-semibold"
-          >
-            {publicLabels[language].staffLogin}
-          </Link>
         </div>
       )}
       <div className="flex h-0.5">

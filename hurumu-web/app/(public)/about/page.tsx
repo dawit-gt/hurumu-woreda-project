@@ -2,12 +2,12 @@ import { Users, MapPin, Target, Eye } from 'lucide-react';
 import LocalizedText from '@/components/layout/LocalizedText';
 
 const STATS = [
-  { value: '124,000+', label: { en: 'Total Population', om: 'Baay\u2019ina Ummataa', am: '\u12e8\u1215\u12dd\u1265 \u1265\u12deት' } },
-  { value: '18', label: { en: 'Kebeles', om: 'Kebeleewwan', am: '\u1240\u1264\u12ee\u127d' } },
-  { value: '847 km²', label: { en: 'Total Area', om: 'Bal\u2019ina Guutuu', am: '\u12a0\u1320\u1243\u120b\u12ed \u1235\u134b\u1275' } },
-  { value: '47', label: { en: 'Schools', om: 'Mana Barumsaa', am: '\u1275\u121d\u1205\u122d\u1275 \u1264\u1276\u127d' } },
-  { value: '3', label: { en: 'Health Centers', om: 'Giddugala Fayyaa', am: '\u12e8\u1323\u120a\u1293 \u121b\u12d5\u12ab\u120e\u127d' } },
-  { value: '6', label: { en: 'Departments', om: 'Waajjirawwan', am: '\u12ad\u134d\u120e\u127d' } },
+  { value: '124,000+', label: { en: 'Total Population', om: 'Baayy’ina Ummataa', am: 'የህዝብ ብዛት' } },
+  { value: '18', label: { en: 'Kebeles', om: 'Kebeleewwan', am: 'ቀበሌዎች' } },
+  { value: '847 km²', label: { en: 'Total Area', om: 'Bal’ina Guutuu', am: 'አጠቃላይ ስፋት' } },
+  { value: '47', label: { en: 'Schools', om: 'Manneen Barnootaa', am: 'ትምህርት ቤቶች' } },
+  { value: '3', label: { en: 'Health Centers', om: 'Giddugala Fayyaa', am: 'የጤና ማዕከሎች' } },
+  { value: '6', label: { en: 'Departments', om: 'Waajjiraawwan', am: 'ክፍሎች' } },
 ];
 
 const KEBELES = [
@@ -17,12 +17,12 @@ const KEBELES = [
 ];
 
 const LEADERSHIP = [
-  { name: 'Ato Diriba Wakjira', role: { en: 'Woreda Administrator', om: 'Bulchaa Woreedaa', am: '\u12e8\u12c8\u1228\u12f3 \u12a0\u1235\u1270\u12f3\u12f3\u122a' } },
-  { name: 'W/ro Chaltu Bedada', role: { en: 'Deputy Administrator', om: 'Itti Aanaa Bulchaa', am: '\u121d\u12ad\u1275 \u12a0\u1235\u1270\u12f3\u12f3\u122a' } },
-  { name: 'Ato Gemechu Tadesse', role: { en: 'Head, Agriculture Office', om: 'Hoogganaa, Waajjira Qonnaa', am: '\u12e8\u130d\u1265\u122d\u1293 \u1263\u120b \u12ab\u120b\u134b' } },
-  { name: 'Dr. Fatuma Ali', role: { en: 'Head, Health Office', om: 'Hoogganaa, Waajjira Fayyaa', am: '\u12e8\u1323\u120a\u1293 \u1263\u120b \u12ab\u120b\u134b' } },
-  { name: 'Ato Berhanu Girma', role: { en: 'Head, Education Office', om: 'Hoogganaa, Waajjira Barnootaa', am: '\u12e8\u1275\u121d\u1205\u122d\u1275 \u1263\u120b \u12ab\u120b\u134b' } },
-  { name: 'Ato Tadesse Wolde', role: { en: 'Head, Finance Office', om: 'Hoogganaa, Waajjira Maallaqaa', am: '\u12e8\u134c\u1293\u1295\u1235 \u1263\u120b \u12ab\u120b\u134b' } },
+  { name: 'Ato Diriba Wakjira', role: { en: 'Woreda Administrator', om: 'Bulchaa Woreedaa', am: 'የወረዳ አስተዳዳሪ' } },
+  { name: 'W/ro Chaltu Bedada', role: { en: 'Deputy Administrator', om: 'Itti Aanaa Bulchaa', am: 'ምክትል አስተዳዳሪ' } },
+  { name: 'Ato Gemechu Tadesse', role: { en: 'Head, Agriculture Office', om: 'Hoogganaa, Waajjira Qonnaa', am: 'የግብርና ኃላፊ' } },
+  { name: 'Dr. Fatuma Ali', role: { en: 'Head, Health Office', om: 'Hoogganaa, Waajjira Fayyaa', am: 'የጤና ኃላፊ' } },
+  { name: 'Ato Berhanu Girma', role: { en: 'Head, Education Office', om: 'Hoogganaa, Waajjira Barnootaa', am: 'የትምህርት ኃላፊ' } },
+  { name: 'Ato Tadesse Wolde', role: { en: 'Head, Finance Office', om: 'Hoogganaa, Waajjira Maallaqaa', am: 'የፋይናንስ ኃላፊ' } },
 ];
 
 export default function AboutPage() {
@@ -34,8 +34,16 @@ export default function AboutPage() {
           <div className="text-xs font-bold text-yellow-400 uppercase tracking-widest mb-2">
             <LocalizedText en="About Us" om="Waa'ee Keenya" am="ስለ እኛ" />
           </div>
-          <h1 className="text-3xl font-extrabold mb-2">Hurumu Woreda</h1>
-          <p className="text-green-200 text-sm">Ilu Aba Bora Zone · Oromia Region · Ethiopia</p>
+          <h1 className="text-3xl font-extrabold mb-2">
+            <LocalizedText en="Hurumu Woreda" om="Aanaa Hurumu" am="ሁሩሙ ወረዳ" />
+          </h1>
+          <p className="text-green-200 text-sm">
+            <LocalizedText 
+              en="Ilu Aba Bora Zone · Oromia Region · Ethiopia"
+              om="Godina Ilu Abbaa Booraa · Naannoo Oromiyaa · Itoophiyaa"
+              am="ኢሉ አባ ቦራ ዞን · ኦሮሚያ ክልል · ኢትዮጵያ"
+            />
+          </p>
         </div>
       </div>
 
@@ -78,7 +86,7 @@ export default function AboutPage() {
               <LocalizedText
                 en="Hurumu is well known for its Jimma coffee production and rich natural forests, which are part of the broader Ilu Aba Bora highland ecosystem."
                 om="Hurumu buna Jimmaa oomishuu isaatiin fi bosona uumamaa badhaadhaa qabuun, kan naannoo ol ka'aa Ilu Abbaa Booraa keessatti argamuun beekamaa dha."
-                am="ሁሩሙ በጅማ ቡና ምርቷ እና ከኢሉ አባ ቦራ ደጋማ ስነ-ምህዳር ክፍል በሆኑ የበለጸጉ የተፈጥሮ ደኖቿ ትታወቃለች።"
+                am="ሁሩሙ በጅማ ቡና ምርቷ እና ከኢሉ አባ ቦራ ደጋማ ስነ-ምህዳር ክፍል በሆኑ የበለጸጉ የተፈጥሮ ደኖቷ ትታወቃለች።"
               />
             </p>
           </div>
